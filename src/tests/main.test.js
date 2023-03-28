@@ -1,17 +1,32 @@
-const ship =  require("../modules/ship")
+const ship =  require("../modules/ship");
+const gameboard = require("../modules/gameboard");
 
 describe("create ship", () => {
+    const newShip = ship(2);
+
     it("ship of certain length", () => {
-        const newShip = ship(2);
         expect(newShip.length).toBe(2);
     })
 
     it("ship is not sunk", () => {
-        const newShip = ship(2);
         expect(newShip.sunk).toBe(false);
     })
 
     it("ship has full hp", () => {
-        expect(ship(2).hp).toBe(2);
+        expect(newShip.hp).toBe(2);
     })
+});
+
+describe("place ship in gameboard", () => {
+    const newBoard = gameboard();
+    newBoard.placeShip(2, [[0, 0], [0, 1]]);
+
+    it("check ship exists in gameboard", () => {
+        expect(newBoard.board[0]).toBeDefined();
+    });
+
+    it("check ship is positioned correctly", () => {
+        const position = newBoard.board[0].pos;
+        expect(position).toStrictEqual([[0, 0], [0, 1]]);
+    });
 })
