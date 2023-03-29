@@ -13,7 +13,7 @@ describe("create ship", () => {
     })
 
     it("ship has full hp", () => {
-        expect(newShip.hp).toBe(2);
+        expect(newShip.health).toStrictEqual(2);
     })
 });
 
@@ -29,4 +29,19 @@ describe("place ship in gameboard", () => {
         const position = newBoard.board[0].pos;
         expect(position).toStrictEqual([[0, 0], [0, 1]]);
     });
-})
+});
+
+describe("check for ship", () => {
+    const newBoard = gameboard();
+    newBoard.placeShip(2, [[ 0, 0 ], [ 0, 1 ]]);
+
+    it("ship exists at fired target location", () => {
+        const attackStatus = newBoard.checkforShip([ 0, 0 ]);
+        expect(attackStatus).toBe(true);
+    });
+
+    it("ship does not exist at fired target location", () => {
+        const attackStatus = newBoard.checkforShip([ 1, 1 ]);
+        expect(attackStatus).toBe(false)
+    });
+});
