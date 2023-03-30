@@ -49,12 +49,17 @@ describe("check for ship", () => {
 describe("receive attack", () => {
     const newBoard = gameboard();
     newBoard.placeShip(2, [[ 0, 0 ], [ 0, 1 ]]);
-    
-    it("attack hit the ship", () => {
-        expect(newBoard.receivedAttack([0,0])).toBe("ship has taken a hit")
-    })
 
     it("attack missed the ship", () => {
+        newBoard.receivedAttack([1,1])
+        expect(newBoard.board[0].health).toBe(2);
         expect(newBoard.receivedAttack([1,0])).toBe("you have missed the ship")
+    }); 
+
+    it("ship takes hit", () => {    
+        newBoard.receivedAttack([0,0])
+        expect(newBoard.board[0].health).toBe(1);
+        expect(newBoard.receivedAttack([0,0])).toBe("ship has taken a hit")
     })
 })
+
