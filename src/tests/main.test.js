@@ -9,7 +9,7 @@ describe("create ship", () => {
     })
 
     it("ship is not sunk", () => {
-        expect(newShip.sunk).toBe(false);
+        expect(newShip.isSunk()).toBe(false);
     })
 
     it("ship has full hp", () => {
@@ -61,10 +61,10 @@ describe("receive attack", () => {
         expect(newBoard.receivedAttack([1,0])).toBe("you have missed the ship")
     }); 
 
-    // it("ship is not sunk", () => {
-    //     const currentShip = newBoard.checkforShip([ 0, 0 ]);
-    //     if(currentShip)
-    // })
+    it("ship not sunk", () => {
+        const sunkStatus = newBoard.board[0].isSunk();
+        expect(sunkStatus).toBe(false);
+    })
 
     it("ship takes hit", () => {    
         const attackMsg = newBoard.receivedAttack([0,0])
@@ -72,6 +72,11 @@ describe("receive attack", () => {
         expect(attackMsg).toBe("ship has taken a hit")
     });
 
-    
+    it("ship sunk", () => {
+        newBoard.receivedAttack([0,1]);
+        expect(newBoard.board[0].hits).toBe(2);
+        const sunkStatus = newBoard.board[0].isSunk();
+        expect(sunkStatus).toBe(true);
+    });
 })
 
