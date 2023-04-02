@@ -13,7 +13,7 @@ describe("create ship", () => {
     })
 
     it("ship has full hp", () => {
-        expect(newShip.health).toStrictEqual(2);
+        expect(newShip.hits).toBe(0);
     })
 });
 
@@ -50,16 +50,28 @@ describe("receive attack", () => {
     const newBoard = gameboard();
     newBoard.placeShip(2, [[ 0, 0 ], [ 0, 1 ]]);
 
+    it("missed shots", () => {
+        newBoard.receivedAttack([1,1])
+        expect(newBoard.missedShots[0]).toStrictEqual([1, 1])
+    })
+
     it("attack missed the ship", () => {
         newBoard.receivedAttack([1,1])
-        expect(newBoard.board[0].health).toBe(2);
+        expect(newBoard.board[0].hits).toBe(0);
         expect(newBoard.receivedAttack([1,0])).toBe("you have missed the ship")
     }); 
 
+    // it("ship is not sunk", () => {
+    //     const currentShip = newBoard.checkforShip([ 0, 0 ]);
+    //     if(currentShip)
+    // })
+
     it("ship takes hit", () => {    
-        newBoard.receivedAttack([0,0])
-        expect(newBoard.board[0].health).toBe(1);
-        expect(newBoard.receivedAttack([0,0])).toBe("ship has taken a hit")
-    })
+        const attackMsg = newBoard.receivedAttack([0,0])
+        expect(newBoard.board[0].hits).toBe(1);
+        expect(attackMsg).toBe("ship has taken a hit")
+    });
+
+    
 })
 
