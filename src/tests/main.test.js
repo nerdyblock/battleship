@@ -37,12 +37,14 @@ describe("check for ship", () => {
 
     it("ship exists at fired target location", () => {
         const attackStatus = newBoard.checkforShip([ 0, 0 ]);
-        expect(attackStatus).toBe(true);
+        expect(attackStatus).toBeGreaterThanOrEqual(0);
+        // expect(attackStatus).toBe(true);
     });
 
     it("ship does not exist at fired target location", () => {
         const attackStatus = newBoard.checkforShip([ 1, 1 ]);
-        expect(attackStatus).toBe(false)
+        expect(attackStatus).toBe(-1);
+        // expect(attackStatus).toBe(false)
     });
 });
 

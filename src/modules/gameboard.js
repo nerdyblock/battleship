@@ -3,9 +3,12 @@ const ship = require("./ship");
 const gameboard  = () => {
     const board = [];
     const missedShots = [];
-    let currentShipIndex;
+    // let currentShipIndex;
 
     const placeShip = (length, location) => {
+        // check for if position is valid
+        // check if ship is not out of bounds
+
         const newShip = ship(length);
         newShip.pos = location;
         board.push(newShip);
@@ -21,17 +24,18 @@ const gameboard  = () => {
             if(Array.isArray(shipStatus) && shipStatus.length) {
                 // can make the function return ship instead of true
                 // and -1 in case of false
-                currentShipIndex = i;
-                return true;
+                // currentShipIndex = i;
+                // return true;
+                return i;
             }
         }
     
-        return false;
+        return -1;
     }
 
     const receivedAttack = (position) => {
-        if(checkforShip(position)) {
-            board[currentShipIndex].hit(); 
+        if(checkforShip(position) >= 0) {
+            board[checkforShip(position)].hit(); 
             return "ship has taken a hit";
         } 
         else {
