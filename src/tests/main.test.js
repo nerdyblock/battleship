@@ -80,5 +80,30 @@ describe("receive attack", () => {
         const sunkStatus = newBoard.board[0].isSunk();
         expect(sunkStatus).toBe(true);
     });
+
+    it("is game over", () => {
+        expect(newBoard.isGameOver()).toBe(true);
+    })
+});
+
+describe("check game over for multiple ships", () => {
+    const newBoard = gameboard();
+    newBoard.placeShip(1, [ [0,0] ]);
+    newBoard.placeShip(1, [ [1,1] ]);
+    newBoard.placeShip(2, [ [2,1], [2,3] ]);
+
+    newBoard.receivedAttack([0,0]);
+
+    it("game not over", () => {
+        expect(newBoard.isGameOver()).toBe(false);
+    })
+
+    it("game over", () => {
+        newBoard.receivedAttack([1,1]);
+        newBoard.receivedAttack([2,1]);
+        newBoard.receivedAttack([2,3]);
+
+        expect(newBoard.isGameOver()).toBe(true);
+    })
 })
 
