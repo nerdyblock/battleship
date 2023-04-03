@@ -44,11 +44,20 @@ const gameboard  = () => {
         }
     }
 
+    const isGameOver = () => {
+        for(let i= 0; i<board.length; i++) {
+            if(!board[i].isSunk()) return false;
+        }
+
+        return true;
+    }
+
     
     return { 
         placeShip,
         receivedAttack,
         checkforShip,
+        isGameOver,
         board,
         missedShots
     };
