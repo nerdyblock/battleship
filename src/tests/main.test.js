@@ -22,11 +22,11 @@ describe("place ship in gameboard", () => {
     newBoard.placeShip(2, [[0, 0], [0, 1]]);
 
     it("check ship exists in gameboard", () => {
-        expect(newBoard.board[0]).toBeDefined();
+        expect(newBoard.ships[0]).toBeDefined();
     });
 
     it("check ship is positioned correctly", () => {
-        const position = newBoard.board[0].pos;
+        const position = newBoard.ships[0].pos;
         expect(position).toStrictEqual([[0, 0], [0, 1]]);
     });
 });
@@ -53,31 +53,40 @@ describe("receive attack", () => {
     newBoard.placeShip(2, [[ 0, 0 ], [ 0, 1 ]]);
 
     it("missed shots", () => {
-        newBoard.receivedAttack([1,1])
-        expect(newBoard.missedShots[0]).toStrictEqual([1, 1])
-    })
+        newBoard.receivedAttack([1,1]);
+        expect(newBoard.missedShots[0]).toStrictEqual([1, 1]);
+    });
 
     it("attack missed the ship", () => {
-        newBoard.receivedAttack([1,1])
-        expect(newBoard.board[0].hits).toBe(0);
-        expect(newBoard.receivedAttack([1,0])).toBe("you have missed the ship")
+        newBoard.receivedAttack([1,1]);
+        expect(newBoard.ships[0].hits).toBe(0);
+        expect(newBoard.receivedAttack([1,0])).toBe("you have missed the ship");
     }); 
 
     it("ship not sunk", () => {
-        const sunkStatus = newBoard.board[0].isSunk();
+        const sunkStatus = newBoard.ships[0].isSunk();
         expect(sunkStatus).toBe(false);
-    })
+    });
+
+    it("spot not hit", () => {
+        expect(newBoard.isAlreadyHit([0,0])).toBe(false);
+    });
 
     it("ship takes hit", () => {    
         const attackMsg = newBoard.receivedAttack([0,0])
-        expect(newBoard.board[0].hits).toBe(1);
+        expect(newBoard.ships[0].hits).toBe(1);
         expect(attackMsg).toBe("ship has taken a hit")
+    });
+
+    it("spot already hit", () => {
+        expect(newBoard.isAlreadyHit([1,1])).toBe(true);
+        expect(newBoard.isAlreadyHit([0,0])).toBe(true);
     });
 
     it("ship sunk", () => {
         newBoard.receivedAttack([0,1]);
-        expect(newBoard.board[0].hits).toBe(2);
-        const sunkStatus = newBoard.board[0].isSunk();
+        expect(newBoard.ships[0].hits).toBe(2);
+        const sunkStatus = newBoard.ships[0].isSunk();
         expect(sunkStatus).toBe(true);
     });
 
