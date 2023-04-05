@@ -19,6 +19,17 @@ describe("create ship", () => {
 
 describe("place ship in gameboard", () => {
     const newBoard = gameboard();
+
+    it("ship out of bounds", () => {
+        const isOutOfBounds = newBoard.checkOutOfBounds([10,0]);
+        expect(isOutOfBounds).toBe(true);
+    });
+
+    it("ship not out of bounds", () => {
+        const isOutOfBounds = newBoard.checkOutOfBounds([0,0]);
+        expect(isOutOfBounds).toBe(false);
+    });
+
     newBoard.placeShip(2, [[0, 0], [0, 1]]);
 
     it("check ship exists in gameboard", () => {
@@ -28,6 +39,11 @@ describe("place ship in gameboard", () => {
     it("check ship is positioned correctly", () => {
         const position = newBoard.ships[0].pos;
         expect(position).toStrictEqual([[0, 0], [0, 1]]);
+    });
+
+    it("ship already exits at location", () => {
+        const placeShipMsg = newBoard.placeShip(1, [[0,0]]);
+        expect(placeShipMsg).toBe("cannot place ship");
     });
 });
 
