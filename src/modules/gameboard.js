@@ -5,9 +5,41 @@ const gameboard  = () => {
     const missedShots = [];
     const damageShips = [];
 
+    const validateLocation = (location) => {
+        if(checkforShip(location) < 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    const checkOutOfBounds = (location) => {
+        if(location[0] < 10 && location[0] >= 0 && location[1] < 10 && location[1] >= 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    const validateLocations = (position) => {
+        // check for out of bounds
+
+        for(let i=0; i<position.length; i++) {
+            if (validateLocation(position[i]) && !checkOutOfBounds(position[i])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     const placeShip = (length, location) => {
         // check for if position is valid
         // check if ship is not out of bounds
+
+        if(!validateLocations(location))  {
+            return "cannot place ship";
+        }
 
         const newShip = ship(length);
         newShip.pos = location;
@@ -49,6 +81,10 @@ const gameboard  = () => {
     }
 
     const receivedAttack = (position) => {
+        if(isAlreadyHit(position)) {
+            return;
+        }
+
         if(checkforShip(position) >= 0) {
             ships[checkforShip(position)].hit(); 
             damageShips.push(position);
@@ -71,6 +107,8 @@ const gameboard  = () => {
     
     return { 
         placeShip,
+        checkOutOfBounds,
+        validateLocations,
         receivedAttack,
         checkforShip,
         isGameOver,
