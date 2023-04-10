@@ -1,5 +1,6 @@
 const ship =  require("../modules/ship");
 const gameboard = require("../modules/gameboard");
+const { validate } = require("webpack");
 
 describe("create ship", () => {
     const newShip = ship(2);
@@ -23,11 +24,15 @@ describe("place ship in gameboard", () => {
     it("ship out of bounds", () => {
         const isOutOfBounds = newBoard.checkOutOfBounds([10,0]);
         expect(isOutOfBounds).toBe(true);
+        const shipOutofBounds = newBoard.validateLocations([[0,10], [0,11]]);
+        expect(shipOutofBounds).toBe(false);
     });
 
     it("ship not out of bounds", () => {
         const isOutOfBounds = newBoard.checkOutOfBounds([0,0]);
         expect(isOutOfBounds).toBe(false);
+        const shipOutofBounds = newBoard.validateLocations([[0,8], [0,9]]);
+        expect(shipOutofBounds).toBe(true);
     });
 
     newBoard.placeShip(2, [[0, 0], [0, 1]]);
