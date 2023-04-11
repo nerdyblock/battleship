@@ -25,12 +25,12 @@ const gameboard  = () => {
         // check for out of bounds
 
         for(let i=0; i<position.length; i++) {
-            if (validateLocation(position[i]) && !checkOutOfBounds(position[i])) {
-                return true;
+            if (!validateLocation(position[i]) || checkOutOfBounds(position[i])) {
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     const placeShip = (length, location) => {
