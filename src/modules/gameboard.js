@@ -33,7 +33,7 @@ const gameboard  = () => {
         return true;
     }
 
-    const placeShip = (length, location) => {
+    const placeShip = (location) => {
         // check for if position is valid
         // check if ship is not out of bounds
 
@@ -41,7 +41,7 @@ const gameboard  = () => {
             return "cannot place ship";
         }
 
-        const newShip = ship(length);
+        const newShip = ship(location.length);
         newShip.pos = location;
         ships.push(newShip);
     }
