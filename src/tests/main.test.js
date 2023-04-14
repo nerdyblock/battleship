@@ -1,9 +1,8 @@
 const ship =  require("../modules/ship");
 const gameboard = require("../modules/gameboard");
-const { validate } = require("webpack");
 
 describe("create ship", () => {
-    const newShip = ship(2);
+    const newShip = ship([[0,0], [0,1]]);
 
     it("ship of certain length", () => {
         expect(newShip.length).toBe(2);
