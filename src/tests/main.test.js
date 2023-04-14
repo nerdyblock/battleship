@@ -35,7 +35,7 @@ describe("place ship in gameboard", () => {
         expect(validateOutofBounds).toBe(true);
     });
 
-    newBoard.placeShip(2, [[0, 0], [0, 1]]);
+    newBoard.placeShip([[0, 0], [0, 1]]);
 
     it("check ship exists in gameboard", () => {
         expect(newBoard.ships[0]).toBeDefined();
@@ -47,14 +47,14 @@ describe("place ship in gameboard", () => {
     });
 
     it("ship already exits at location", () => {
-        const placeShipMsg = newBoard.placeShip(1, [[0,0]]);
+        const placeShipMsg = newBoard.placeShip([[0,0]]);
         expect(placeShipMsg).toBe("cannot place ship");
     });
 });
 
 describe("check for ship", () => {
     const newBoard = gameboard();
-    newBoard.placeShip(2, [[ 0, 0 ], [ 0, 1 ]]);
+    newBoard.placeShip([[ 0, 0 ], [ 0, 1 ]]);
 
     it("ship exists at fired target location", () => {
         const attackStatus = newBoard.checkforShip([ 0, 0 ]);
@@ -71,7 +71,7 @@ describe("check for ship", () => {
 
 describe("receive attack", () => {
     const newBoard = gameboard();
-    newBoard.placeShip(2, [[ 0, 0 ], [ 0, 1 ]]);
+    newBoard.placeShip([[ 0, 0 ], [ 0, 1 ]]);
 
     it("missed shots", () => {
         newBoard.receivedAttack([1,1]);
@@ -118,9 +118,9 @@ describe("receive attack", () => {
 
 describe("check game over for multiple ships", () => {
     const newBoard = gameboard();
-    newBoard.placeShip(1, [ [0,0] ]);
-    newBoard.placeShip(1, [ [1,1] ]);
-    newBoard.placeShip(2, [ [2,1], [2,3] ]);
+    newBoard.placeShip([ [0,0] ]);
+    newBoard.placeShip([ [1,1] ]);
+    newBoard.placeShip([ [2,1], [2,3] ]);
 
     newBoard.receivedAttack([0,0]);
 
