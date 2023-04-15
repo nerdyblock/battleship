@@ -1,8 +1,8 @@
-const ship = (length) => {
+const ship = (pos) => {
     return {
-        length,
+        pos,
+        length: pos.length,
         // sunk : false,
-        pos : [],
         hits : 0,
         hit () {
             if(this.isSunk)
