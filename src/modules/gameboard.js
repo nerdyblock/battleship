@@ -5,6 +5,63 @@ const gameboard  = () => {
     const missedShots = [];
     const damageShips = [];
 
+    const randomBoardGenerator = () => {
+        //  ship sizes
+        // 4*2,3*2,2*2,1*2
+
+        for(let shipLength=4; shipLength>0; shipLength--) {
+            let shipOccurence = 0;
+
+            while(shipOccurence < 2) {
+
+                const newRandomShip = createRandomShipLocation(shipLength);
+
+                if(validateLocations(newRandomShip)) {
+                    placeShip(newRandomShip);
+                    shipOccurence++;
+                }
+
+            }
+        }
+    }
+
+    function createRandomShipLocation (length) {
+        const shipLocation = [];
+        const direction = ['x','y'][getRandomInt(2)];
+        let startpos = [getRandomInt(9), getRandomInt(9)];
+        shipLocation.push(startpos);
+
+        if(direction === 'x') {
+            for(let i=1; i<length; i++) {
+                shipLocation.push([startpos[0], startpos[1] + i]);
+            }
+        } else {
+            for(let i=1; i<length; i++) {
+                shipLocation.push([startpos[0] + i, startpos[1]]);
+            }
+        }
+        
+        return shipLocation;
+    }
+
+    const generateShip = (length, startpos, direction) => {
+        const shipLocation = [];
+        shipLocation.push(startpos);
+
+        if(direction === 'x') {
+            for(let i=1; i<length; i++) {
+                shipLocation.push([startpos[0], startpos[1] + i]);
+            }
+        } else {
+            for(let i=1; i<length; i++) {
+                shipLocation.push([startpos[0] + i, startpos[1]]);
+            }
+            
+        }
+
+        return shipLocation;
+    }
+
     const validateLocation = (location) => {
         if(checkforShip(location) < 0) {
             return true;
@@ -34,15 +91,13 @@ const gameboard  = () => {
     }
 
     const placeShip = (location) => {
-        // check for if position is valid
-        // check if ship is not out of bounds
 
         if(!validateLocations(location))  {
             return "cannot place ship";
         }
 
-        const newShip = ship(location.length);
-        newShip.pos = location;
+        const newShip = ship(location);
+        // newShip.pos = location;
         ships.push(newShip);
     }
 
@@ -106,6 +161,9 @@ const gameboard  = () => {
 
     
     return { 
+        randomBoardGenerator,
+        generateShip,
+        createRandomShipLocation,
         placeShip,
         checkOutOfBounds,
         validateLocations,
@@ -116,6 +174,10 @@ const gameboard  = () => {
         ships,
         missedShots
     };
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
 }
 
 module.exports = gameboard;
