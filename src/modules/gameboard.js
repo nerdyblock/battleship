@@ -79,7 +79,6 @@ const gameboard  = () => {
     }
 
     const validateLocations = (position) => {
-        // check for out of bounds
 
         for(let i=0; i<position.length; i++) {
             if (!validateLocation(position[i]) || checkOutOfBounds(position[i])) {
@@ -97,7 +96,6 @@ const gameboard  = () => {
         }
 
         const newShip = ship(location);
-        // newShip.pos = location;
         ships.push(newShip);
     }
 
@@ -109,10 +107,6 @@ const gameboard  = () => {
                 item[0] === ship[0] && item[1] === ship[1] );
 
             if(Array.isArray(shipStatus) && shipStatus.length) {
-                // can make the function return ship instead of true
-                // and -1 in case of false
-                // currentShipIndex = i;
-                // return true;
                 return i;
             }
         }
@@ -165,7 +159,6 @@ const gameboard  = () => {
         generateShip,
         createRandomShipLocation,
         placeShip,
-        checkOutOfBounds,
         validateLocations,
         receivedAttack,
         checkforShip,
