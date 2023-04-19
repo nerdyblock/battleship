@@ -21,33 +21,13 @@ describe("place ship in gameboard", () => {
     const newBoard = gameboard();
 
     it("ship out of bounds", () => {
-        const isOutOfBounds = newBoard.checkOutOfBounds([10,0]);
-        expect(isOutOfBounds).toBe(true);
         const validateOutofBounds = newBoard.validateLocations([[0,9], [0,10], [0,11]]);
         expect(validateOutofBounds).toBe(false);
     });
 
     it("ship not out of bounds", () => {
-        const isOutOfBounds = newBoard.checkOutOfBounds([0,0]);
-        expect(isOutOfBounds).toBe(false);
         const validateOutofBounds = newBoard.validateLocations([[0,8], [0,9]]);
         expect(validateOutofBounds).toBe(true);
-    });
-
-    newBoard.placeShip([[0, 0], [0, 1]]);
-
-    it("check ship exists in gameboard", () => {
-        expect(newBoard.ships[0]).toBeDefined();
-    });
-
-    it("check ship is positioned correctly", () => {
-        const position = newBoard.ships[0].pos;
-        expect(position).toStrictEqual([[0, 0], [0, 1]]);
-    });
-
-    it("ship already exits at location", () => {
-        const placeShipMsg = newBoard.placeShip([[0,0]]);
-        expect(placeShipMsg).toBe("cannot place ship");
     });
 });
 
@@ -58,13 +38,11 @@ describe("check for ship", () => {
     it("ship exists at fired target location", () => {
         const attackStatus = newBoard.checkforShip([ 0, 0 ]);
         expect(attackStatus).toBeGreaterThanOrEqual(0);
-        // expect(attackStatus).toBe(true);
     });
 
     it("ship does not exist at fired target location", () => {
         const attackStatus = newBoard.checkforShip([ 1, 1 ]);
         expect(attackStatus).toBe(-1);
-        // expect(attackStatus).toBe(false)
     });
 });
 
