@@ -130,8 +130,8 @@ const gameboard  = () => {
     }
 
     const receivedAttack = (position) => {
-        if(isAlreadyHit(position)) {
-            return;
+        if(isAlreadyHit(position) || checkOutOfBounds(position)) {
+            return -1;
         }
 
         if(checkforShip(position) >= 0) {
@@ -153,7 +153,6 @@ const gameboard  = () => {
         return true;
     }
 
-    
     return { 
         randomBoardGenerator,
         generateShip,
@@ -163,7 +162,6 @@ const gameboard  = () => {
         receivedAttack,
         checkforShip,
         isGameOver,
-        isAlreadyHit,
         ships,
         missedShots
     };
