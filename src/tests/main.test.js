@@ -66,10 +66,6 @@ describe("receive attack", () => {
         expect(sunkStatus).toBe(false);
     });
 
-    it("spot not hit", () => {
-        expect(newBoard.isAlreadyHit([0,0])).toBe(false);
-    });
-
     it("ship takes hit", () => {    
         const attackMsg = newBoard.receivedAttack([0,0])
         expect(newBoard.ships[0].hits).toBe(1);
@@ -77,8 +73,8 @@ describe("receive attack", () => {
     });
 
     it("spot already hit", () => {
-        expect(newBoard.isAlreadyHit([1,1])).toBe(true);
-        expect(newBoard.isAlreadyHit([0,0])).toBe(true);
+        expect(newBoard.receivedAttack([1,1])).toBe(-1);
+        expect(newBoard.receivedAttack([0,0])).toBe(-1);
     });
 
     it("ship sunk", () => {
