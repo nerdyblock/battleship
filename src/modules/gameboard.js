@@ -14,7 +14,10 @@ const gameboard  = () => {
 
             while(shipOccurence < 2) {
 
-                const newRandomShip = createRandomShipLocation(shipLength);
+                const startpos = getRandomCoordinates();
+                const direction = getRandomDirection();
+
+                const newRandomShip = generateShip(shipLength, startpos, direction);
 
                 if(validateLocations(newRandomShip)) {
                     placeShip(newRandomShip);
@@ -25,23 +28,12 @@ const gameboard  = () => {
         }
     }
 
-    function createRandomShipLocation (length) {
-        const shipLocation = [];
-        const direction = ['x','y'][getRandomInt(2)];
-        let startpos = [getRandomInt(9), getRandomInt(9)];
-        shipLocation.push(startpos);
+    const getRandomDirection = () => {
+        return ['x','y'][getRandomInt(2)];
+    }
 
-        if(direction === 'x') {
-            for(let i=1; i<length; i++) {
-                shipLocation.push([startpos[0], startpos[1] + i]);
-            }
-        } else {
-            for(let i=1; i<length; i++) {
-                shipLocation.push([startpos[0] + i, startpos[1]]);
-            }
-        }
-        
-        return shipLocation;
+    const getRandomCoordinates = () => {
+        return [getRandomInt(9), getRandomInt(9)];
     }
 
     const generateShip = (length, startpos, direction) => {
@@ -156,7 +148,6 @@ const gameboard  = () => {
     return { 
         randomBoardGenerator,
         generateShip,
-        createRandomShipLocation,
         placeShip,
         validateLocations,
         receivedAttack,
@@ -166,6 +157,9 @@ const gameboard  = () => {
         missedShots
     };
 }
+
+const newBoard = gameboard();
+newBoard.randomBoardGenerator();
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
