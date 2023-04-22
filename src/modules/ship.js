@@ -2,7 +2,6 @@ const ship = (pos) => {
     return {
         pos,
         length: pos.length,
-        // sunk : false,
         hits : 0,
         hit () {
             if(this.isSunk)
