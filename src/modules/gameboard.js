@@ -54,43 +54,6 @@ const gameboard  = () => {
         return shipLocation;
     }
 
-    const validateLocation = (location) => {
-        if(checkforShip(location) < 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    const checkOutOfBounds = (location) => {
-        if(location[0] < 10 && location[0] >= 0 && location[1] < 10 && location[1] >= 0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    const validateLocations = (position) => {
-
-        for(let i=0; i<position.length; i++) {
-            if (!validateLocation(position[i]) || checkOutOfBounds(position[i])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    const placeShip = (location) => {
-
-        if(!validateLocations(location))  {
-            return "cannot place ship";
-        }
-
-        const newShip = ship(location);
-        ships.push(newShip);
-    }
-
     const checkforShip = (ship) => {
         for(let i=0; i<ships.length; i++) {
             const currentShipLocation = ships[i].pos;
@@ -104,6 +67,41 @@ const gameboard  = () => {
         }
     
         return -1;
+    }
+
+    const validateLocation = (location) => {
+        if(checkforShip(location) < 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    const checkOutOfBounds = (location) => {
+        if((location[0] < 10 && location[0] >= 0) && (location[1] < 10 && location[1] >= 0)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    const validateLocations = (position) => {
+        for(let i=0; i<position.length; i++) {
+            if (!validateLocation(position[i]) || checkOutOfBounds(position[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    const placeShip = (location) => {
+        if(!validateLocations(location))  {
+            return "cannot place ship";
+        }
+
+        const newShip = ship(location);
+        ships.push(newShip);
     }
 
     const isAlreadyHit = (position) => {
@@ -147,6 +145,7 @@ const gameboard  = () => {
 
     return { 
         randomBoardGenerator,
+        getRandomCoordinates,
         generateShip,
         placeShip,
         validateLocations,
@@ -154,12 +153,10 @@ const gameboard  = () => {
         checkforShip,
         isGameOver,
         ships,
-        missedShots
+        missedShots,
+        damageShips
     };
 }
-
-const newBoard = gameboard();
-newBoard.randomBoardGenerator();
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
