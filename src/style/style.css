@@ -1,0 +1,36 @@
+:root {
+    font-size: 16px;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+main {
+    /* width: 100vw;
+    height: 70vh; */
+    color: aqua;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5em;
+}
+
+.gameboard {
+    display: grid;
+    margin: 2em;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    border: 2px solid black;
+}
+
+.cell {
+    border: 1px solid black;
+}
+
