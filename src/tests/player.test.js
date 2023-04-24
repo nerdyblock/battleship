@@ -1,15 +1,6 @@
 const player = require("../modules/player");
 const gameboard = require("../modules/gameboard");
 
-// describe("randomly generate ship", () => {
-//     const newPlayer = gameboard();
-    
-//     it("generate a ship of length 4", () => {
-//         const newRandomShip = newPlayer.createRandomShipLocation(4);
-//         expect(newRandomShip.length).toBe(4);
-//     });
-// });
-
 describe("randomly generate gameboard", () => {
     const newPlayer = gameboard();
     newPlayer.randomBoardGenerator();
