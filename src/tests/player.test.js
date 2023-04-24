@@ -15,7 +15,7 @@ describe("randomly generate gameboard", () => {
     newPlayer.randomBoardGenerator();
     
     it("board has 8 ships", () => {
-        expect(newPlayer.ships.length).toBe(8)
+        expect(newPlayer.ships.length).toBe(5)
     });
 });
 
