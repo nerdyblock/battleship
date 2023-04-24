@@ -7,12 +7,12 @@ const gameboard  = () => {
 
     const randomBoardGenerator = () => {
         //  ship sizes
-        // 4*2,3*2,2*2,1*2
+        // 5,4,3,2,1
 
-        for(let shipLength=4; shipLength>0; shipLength--) {
+        for(let shipLength=5; shipLength>0; shipLength--) {
             let shipOccurence = 0;
 
-            while(shipOccurence < 2) {
+            while(shipOccurence < 1) {
 
                 const startpos = getRandomCoordinates();
                 const direction = getRandomDirection();
