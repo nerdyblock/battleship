@@ -69,8 +69,26 @@ const gameboard  = () => {
         return -1;
     }
 
+    const clearBoard = () => {
+        ships.length = 0;
+    }
+
+    const isAdjacentToShip = (location) => {
+        checkRight = [location[0], location[1]+1];
+        checkLeft = [location[0], location[1]-1];
+        checkUp = [location[0]-1, location[1]];
+        checkDown = [location[0]+1, location[1]];
+
+        return (
+                checkforShip(checkRight) < 0 && 
+                checkforShip(checkLeft) < 0 && 
+                checkforShip(checkDown) < 0 && 
+                checkforShip(checkUp) < 0
+            )
+    }
+
     const validateLocation = (location) => {
-        if(checkforShip(location) < 0) {
+        if(checkforShip(location) < 0 && isAdjacentToShip(location)) {
             return true;
         }
 
@@ -145,6 +163,7 @@ const gameboard  = () => {
 
     return { 
         randomBoardGenerator,
+        clearBoard,
         getRandomCoordinates,
         generateShip,
         placeShip,
