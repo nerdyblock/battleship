@@ -34,3 +34,7 @@ main {
     border: 1px solid black;
 }
 
+.ship-cell {
+    background-color: rgb(49, 49, 49);
+}
+
