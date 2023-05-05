@@ -54,19 +54,26 @@ const gameboard  = () => {
         return shipLocation;
     }
 
-    const checkforShip = (ship) => {
-        for(let i=0; i<ships.length; i++) {
-            const currentShipLocation = ships[i].pos;
+    // const checkforShip = (ship) => {
+    //     for(let i=0; i<ships.length; i++) {
+    //         const currentShipLocation = ships[i].pos;
 
-            const shipStatus = currentShipLocation.filter(item => 
-                item[0] === ship[0] && item[1] === ship[1] );
+    //         const shipStatus = currentShipLocation.filter(item => 
+    //             item[0] === ship[0] && item[1] === ship[1] );
 
-            if(Array.isArray(shipStatus) && shipStatus.length) {
-                return i;
-            }
-        }
+    //         if(Array.isArray(shipStatus) && shipStatus.length) {
+    //             return i;
+    //         }
+    //     }
     
-        return -1;
+    //     return -1;
+    // }
+
+    const checkforShip = (ship) => {
+        const index = ships.findIndex(({ pos }) => 
+          pos.some(([x, y]) => x === ship[0] && y === ship[1])
+        );
+        return index !== -1 ? index : -1;
     }
 
     const clearBoard = () => {
@@ -74,18 +81,31 @@ const gameboard  = () => {
     }
 
     const isAdjacentToShip = (location) => {
-        checkRight = [location[0], location[1]+1];
-        checkLeft = [location[0], location[1]-1];
-        checkUp = [location[0]-1, location[1]];
-        checkDown = [location[0]+1, location[1]];
-
-        return (
-                checkforShip(checkRight) < 0 && 
-                checkforShip(checkLeft) < 0 && 
-                checkforShip(checkDown) < 0 && 
-                checkforShip(checkUp) < 0
-            )
+        return [ [0,1], [0,-1], [-1,0], [1,0], [-1,-1], [1,-1], [-1,1], [1,1] ]
+            .every(offset => checkforShip([location[0] + offset[0], location[1] + offset[1]]) < 0);
     }
+        
+    // const isAdjacentToShip = (location) => {
+    //     checkRight = [location[0], location[1]+1];
+    //     checkLeft = [location[0], location[1]-1];
+    //     checkUp = [location[0]-1, location[1]];
+    //     checkDown = [location[0]+1, location[1]];
+    //     checkTopRight = [location[0]-1, location[1]+1];
+    //     checkTopLeft = [location[0]-1, location[1]-1];
+    //     checkDownRight = [location[0]+1, location[1]+1];
+    //     checkDownLeft = [location[0]+1, location[1]-1];
+
+    //     return (
+    //             checkforShip(checkRight) < 0 && 
+    //             checkforShip(checkLeft) < 0 && 
+    //             checkforShip(checkDown) < 0 && 
+    //             checkforShip(checkUp) < 0 && 
+    //             checkforShip(checkTopLeft) < 0 && 
+    //             checkforShip(checkDownLeft) < 0 && 
+    //             checkforShip(checkTopRight) < 0 && 
+    //             checkforShip(checkDownRight) < 0
+    //         )
+    // }
 
     const validateLocation = (location) => {
         if(checkforShip(location) < 0 && isAdjacentToShip(location)) {
@@ -153,13 +173,15 @@ const gameboard  = () => {
         }
     }
 
-    const isGameOver = () => {
-        for(let i= 0; i<ships.length; i++) {
-            if(!ships[i].isSunk()) return false;
-        }
+    const isGameOver = () => ships.every(ship => ship.isSunk());
 
-        return true;
-    }
+    // const isGameOver = () => {
+    //     for(let i= 0; i<ships.length; i++) {
+    //         if(!ships[i].isSunk()) return false;
+    //     }
+
+    //     return true;
+    // }
 
     return { 
         randomBoardGenerator,
