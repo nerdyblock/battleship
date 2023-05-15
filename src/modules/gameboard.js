@@ -6,27 +6,46 @@ const gameboard  = () => {
     const damageShips = [];
 
     const randomBoardGenerator = () => {
-        //  ship sizes
-        // 5,4,3,2,1
-
-        for(let shipLength=5; shipLength>0; shipLength--) {
-            let shipOccurence = 0;
-
-            while(shipOccurence < 1) {
-
-                const startpos = getRandomCoordinates();
-                const direction = getRandomDirection();
-
-                const newRandomShip = generateShip(shipLength, startpos, direction);
-
-                if(validateLocations(newRandomShip)) {
-                    placeShip(newRandomShip);
-                    shipOccurence++;
-                }
-
+        const shipSizes = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
+      
+        for (const shipLength of shipSizes) {
+          let shipOccurence = 0;
+      
+          while (shipOccurence < 1) {
+            const startpos = getRandomCoordinates();
+            const direction = getRandomDirection();
+            const newRandomShip = generateShip(shipLength, startpos, direction);
+      
+            if (validateLocations(newRandomShip)) {
+              placeShip(newRandomShip);
+              shipOccurence++;
             }
+          }
         }
     }
+
+    // const randomBoardGenerator = () => {
+    //     //  ship sizes
+    //     // 5,4,3,2,1
+
+    //     for(let shipLength=5; shipLength>0; shipLength--) {
+    //         let shipOccurence = 0;
+
+    //         while(shipOccurence < 1) {
+
+    //             const startpos = getRandomCoordinates();
+    //             const direction = getRandomDirection();
+
+    //             const newRandomShip = generateShip(shipLength, startpos, direction);
+
+    //             if(validateLocations(newRandomShip)) {
+    //                 placeShip(newRandomShip);
+    //                 shipOccurence++;
+    //             }
+
+    //         }
+    //     }
+    // }
 
     const getRandomDirection = () => {
         return ['x','y'][getRandomInt(2)];
@@ -34,6 +53,17 @@ const gameboard  = () => {
 
     const getRandomCoordinates = () => {
         return [getRandomInt(9), getRandomInt(9)];
+    }
+
+    const getRandomFirePosition = () => {
+        let x, y;
+
+        do {
+          x = Math.floor(Math.random() * 10);
+          y = Math.floor(Math.random() * 10);
+        } while (isAlreadyHit([ x , y ]));
+    
+        return [x, y];
     }
 
     const generateShip = (length, startpos, direction) => {
@@ -165,11 +195,11 @@ const gameboard  = () => {
         if(checkforShip(position) >= 0) {
             ships[checkforShip(position)].hit(); 
             damageShips.push(position);
-            return "ship has taken a hit";
+            return "hit";
         } 
         else {
             missedShots.push(position);
-            return "you have missed the ship";
+            return "miss";
         }
     }
 
@@ -193,6 +223,7 @@ const gameboard  = () => {
         receivedAttack,
         checkforShip,
         isGameOver,
+        getRandomFirePosition,
         ships,
         missedShots,
         damageShips
