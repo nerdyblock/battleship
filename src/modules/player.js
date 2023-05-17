@@ -17,12 +17,15 @@ const player = (playerName) => {
         return firingLocation;
     }
 
+    const isGameOver = () => board.ships.every(ship => ship.isSunk());
+
     return {
+        board,
         setName, 
         getName,
-        board,
         fire,
         fireRandomly,
+        isGameOver
     }
 
 }
