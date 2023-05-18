@@ -24,29 +24,6 @@ const gameboard  = () => {
         }
     }
 
-    // const randomBoardGenerator = () => {
-    //     //  ship sizes
-    //     // 5,4,3,2,1
-
-    //     for(let shipLength=5; shipLength>0; shipLength--) {
-    //         let shipOccurence = 0;
-
-    //         while(shipOccurence < 1) {
-
-    //             const startpos = getRandomCoordinates();
-    //             const direction = getRandomDirection();
-
-    //             const newRandomShip = generateShip(shipLength, startpos, direction);
-
-    //             if(validateLocations(newRandomShip)) {
-    //                 placeShip(newRandomShip);
-    //                 shipOccurence++;
-    //             }
-
-    //         }
-    //     }
-    // }
-
     const getRandomDirection = () => {
         return ['x','y'][getRandomInt(2)];
     }
@@ -78,26 +55,10 @@ const gameboard  = () => {
             for(let i=1; i<length; i++) {
                 shipLocation.push([startpos[0] + i, startpos[1]]);
             }
-            
         }
 
         return shipLocation;
     }
-
-    // const checkforShip = (ship) => {
-    //     for(let i=0; i<ships.length; i++) {
-    //         const currentShipLocation = ships[i].pos;
-
-    //         const shipStatus = currentShipLocation.filter(item => 
-    //             item[0] === ship[0] && item[1] === ship[1] );
-
-    //         if(Array.isArray(shipStatus) && shipStatus.length) {
-    //             return i;
-    //         }
-    //     }
-    
-    //     return -1;
-    // }
 
     const checkforShip = (ship) => {
         const index = ships.findIndex(({ pos }) => 
@@ -115,28 +76,6 @@ const gameboard  = () => {
             .every(offset => checkforShip([location[0] + offset[0], location[1] + offset[1]]) < 0);
     }
         
-    // const isAdjacentToShip = (location) => {
-    //     checkRight = [location[0], location[1]+1];
-    //     checkLeft = [location[0], location[1]-1];
-    //     checkUp = [location[0]-1, location[1]];
-    //     checkDown = [location[0]+1, location[1]];
-    //     checkTopRight = [location[0]-1, location[1]+1];
-    //     checkTopLeft = [location[0]-1, location[1]-1];
-    //     checkDownRight = [location[0]+1, location[1]+1];
-    //     checkDownLeft = [location[0]+1, location[1]-1];
-
-    //     return (
-    //             checkforShip(checkRight) < 0 && 
-    //             checkforShip(checkLeft) < 0 && 
-    //             checkforShip(checkDown) < 0 && 
-    //             checkforShip(checkUp) < 0 && 
-    //             checkforShip(checkTopLeft) < 0 && 
-    //             checkforShip(checkDownLeft) < 0 && 
-    //             checkforShip(checkTopRight) < 0 && 
-    //             checkforShip(checkDownRight) < 0
-    //         )
-    // }
-
     const validateLocation = (location) => {
         if(checkforShip(location) < 0 && isAdjacentToShip(location)) {
             return true;
@@ -203,16 +142,6 @@ const gameboard  = () => {
         }
     }
 
-    const isGameOver = () => ships.every(ship => ship.isSunk());
-
-    // const isGameOver = () => {
-    //     for(let i= 0; i<ships.length; i++) {
-    //         if(!ships[i].isSunk()) return false;
-    //     }
-
-    //     return true;
-    // }
-
     return { 
         randomBoardGenerator,
         clearBoard,
@@ -222,7 +151,6 @@ const gameboard  = () => {
         validateLocations,
         receivedAttack,
         checkforShip,
-        isGameOver,
         getRandomFirePosition,
         ships,
         missedShots,
