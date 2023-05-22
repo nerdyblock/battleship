@@ -9,19 +9,39 @@ const gameboard  = () => {
         const shipSizes = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
       
         for (const shipLength of shipSizes) {
-          let shipOccurence = 0;
+        //   let shipOccurence = 0;
       
-          while (shipOccurence < 1) {
+        //   while (shipOccurence < 1) {
+        //     const startpos = getRandomCoordinates();
+        //     const direction = getRandomDirection();
+        //     const newRandomShip = generateShip(shipLength, startpos, direction);
+      
+        //     if (validateLocations(newRandomShip)) {
+        //       placeShip(newRandomShip);
+        //       shipOccurence++;
+        //     }
+        //   }
+
+            const newRandomShip = generateRandomShip(shipLength);
+            placeShip(newRandomShip);
+        }
+    }
+
+    const generateRandomShip = (shipLength) => {
+        let shipOccurence = 0;
+        let newRandomShip;
+      
+        while (shipOccurence < 1) {
             const startpos = getRandomCoordinates();
             const direction = getRandomDirection();
-            const newRandomShip = generateShip(shipLength, startpos, direction);
-      
+            newRandomShip = generateShip(shipLength, startpos, direction);
+        
             if (validateLocations(newRandomShip)) {
-              placeShip(newRandomShip);
-              shipOccurence++;
+                shipOccurence++;
             }
-          }
         }
+
+        return newRandomShip;
     }
 
     const getRandomDirection = () => {
@@ -147,6 +167,7 @@ const gameboard  = () => {
         clearBoard,
         getRandomCoordinates,
         generateShip,
+        generateRandomShip,
         placeShip,
         validateLocations,
         receivedAttack,
