@@ -12,9 +12,10 @@ const player = (playerName) => {
     }
 
     const fireRandomly = () => {
-        const firingLocation = board.getRandomFirePosition()
-        fire(firingLocation);
-        return firingLocation;
+        return board.getRandomFirePosition();
+        // const firingLocation = board.getRandomFirePosition()
+        // fire(firingLocation);
+        // return firingLocation;
     }
 
     const isGameOver = () => board.ships.every(ship => ship.isSunk());
