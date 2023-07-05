@@ -34,9 +34,10 @@ export const uiFire = (firedLocation, attackMsg) => {
 
     if(attackMsg === 'hit') {
         firedLocation.classList.add('damaged');
+        return true;
     } else if (attackMsg === 'miss') {
         firedLocation.classList.add('missed');
-
+        return false;
     }
 }
 
@@ -76,6 +77,14 @@ function shipOverLay(ship, uiCell) {
 
     // uiCell.innerHTML = `<div id="${Math.random().toString(16).slice(2)}" draggable="true" data-length="${ship.length}" data-position="${direction}" class="ship-box" style="width: ${width}px;height: ${height}px;"></div>`
     uiCell.innerHTML = `<div id="${Math.random().toString(16).slice(2)}" data-length="${ship.length}" data-position="${direction}" class="ship-box" style="width: ${width}px;height: ${height}px;"></div>`
+}
+
+export function uiShowSunkShip(ship, playerName) {
+    const pos = ship.pos[0];
+    const shipCell = pos.join(',');
+    const uiCell = document.querySelector(`.${playerName} [data-location="${shipCell}"]`);
+    shipOverLay(ship, uiCell);
+    uiCell.firstChild.classList.add("sunk-ship")
 }
 
 export const uiPlaceShip = (ship, playerName) => {
