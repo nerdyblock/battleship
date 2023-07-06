@@ -1,12 +1,3 @@
-// show place your ship divs
-// randomize button and code
-// hide computer board --- done
-
-// html --> h1(place your ships)
-//   h3 --> drag and drop to place and double click to rotate your ship
-
-
-// button --> randomize, start game
 import  { uiPlaceShips, uiRemoveshipCell, uiClearBoard } from "../modules/ui"
 
 export default function hideComputerBoard() {
@@ -14,10 +5,10 @@ export default function hideComputerBoard() {
     computerBoard.style.display = "none";
 }
 
-let selectedShip;
-let prevShip = [];
-
-export function placeShip (playerOne, playerOneBoard) {
+export function createShipPlacement(playerOne, playerBoard) {
+    let selectedShip;
+    let prevShip = [];
+  
     function dragStart(e) {
         if (e.target.getAttribute('draggable') !== 'true') return;
       
@@ -38,11 +29,11 @@ export function placeShip (playerOne, playerOneBoard) {
         e.dataTransfer.setData("text/plain", e.target.id);
         e.dataTransfer.effectAllowed = "move";
     }
-      
+  
     function dragOver(e) {
         e.preventDefault();
     }
-    
+  
     function dragEnter(e) {
         const location = e.target.dataset.location;
         if(location === undefined || selectedShip === undefined) return;
@@ -50,21 +41,18 @@ export function placeShip (playerOne, playerOneBoard) {
         const pos = location.split(',').map(Number);
         const shipLocation = playerOne.board.generateShip(selectedShip.length, pos, selectedShip.getDirection());
         if(playerOne.board.validateLocations(shipLocation)) {
-            e.target.style.zIndex = 2;
+            // e.target.style.zIndex = 2;
             e.target.classList.add('ship-box__placeholder');
         }
     }
-    
+  
     function dragLeave(e) {
         e.target.classList.remove('ship-box__placeholder');
-        e.target.style.zIndex = '';
     }
-    
+  
     function dragDrop(e) {
         const location = e.target.dataset.location;
-        console.log('drop location' ,location)
         if(location === undefined) {
-            console.log('location undefined', selectedShip);
             playerOne.board.placeShip(selectedShip.pos);
             return;
         }
@@ -73,7 +61,6 @@ export function placeShip (playerOne, playerOneBoard) {
         const shipLocation = playerOne.board.generateShip(selectedShip.length, pos, selectedShip.getDirection());
         
         if(playerOne.board.validateLocations(shipLocation)) {
-            try {
             const data = e.dataTransfer.getData('text');
             const src = document.getElementById(data);
         
@@ -81,17 +68,13 @@ export function placeShip (playerOne, playerOneBoard) {
                 playerOne.board.placeShip(selectedShip.pos);
             } else {
                 playerOne.board.placeShip(shipLocation);
-                e.target.appendChild(src)
-                e.target.classList.remove('ship-box__placeholder')
+                e.target.appendChild(src);
+                e.target.classList.remove('ship-box__placeholder');
             }
             
-            }
-            catch(err) {
-            console.log(err)
-            }
         } 
     }
-    
+  
     function dragEnd(e) {
         if(e.target.hasAttributes('draggable')) {
             e.dataTransfer.clearData("text");
@@ -99,20 +82,7 @@ export function placeShip (playerOne, playerOneBoard) {
             uiPlaceShips(playerOne.board.ships, playerOne.getName())
         }
     }
-    
-    playerOneBoard.addEventListener('dragstart', dragStart);
-    
-    const cell = document.querySelectorAll('.cell');
-    cell.forEach(item => {
-        item.addEventListener('dragover', dragOver);
-        item.addEventListener('dragenter', dragEnter);
-        item.addEventListener('dragleave', dragLeave);
-        item.addEventListener('drop', dragDrop);
-    })
-    
-    playerOneBoard.addEventListener('dragend', dragEnd);
-    
-    
+  
     function rotateShip(e) {
         if (e.target.getAttribute('draggable') !== 'true') return;
         
@@ -136,20 +106,34 @@ export function placeShip (playerOne, playerOneBoard) {
         
         playerOne.board.placeShip(currentShip.pos);
     }
-    
-    playerOneBoard.addEventListener('dblclick', rotateShip)
-
-
-    const randomPlacementButton = document.getElementById("randomize");
-    randomPlacementButton.addEventListener("click", () => {
-    
+  
+    function randomPlacement() {
         playerOne.board.clearBoard();
         uiClearBoard();
         playerOne.board.randomBoardGenerator();
         const ships = playerOne.board.ships;
-
         uiPlaceShips(ships, playerOne.getName());
-    });
+    }
+  
+    function initialize() {
+      playerBoard.addEventListener('dragstart', dragStart);
+  
+      const cells = document.querySelectorAll('.cell');
+      cells.forEach(cell => {
+        cell.addEventListener('dragover', dragOver);
+        cell.addEventListener('dragenter', dragEnter);
+        cell.addEventListener('dragleave', dragLeave);
+        cell.addEventListener('drop', dragDrop);
+      });
+  
+      playerBoard.addEventListener('dragend', dragEnd);
+      playerBoard.addEventListener('dblclick', rotateShip);
+  
+      const randomPlacementButton = document.getElementById("randomize");
+      randomPlacementButton.addEventListener("click", randomPlacement);
+    }
+  
+    return {
+      initialize
+    };
 }
-
-
