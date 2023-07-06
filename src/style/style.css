@@ -48,3 +48,52 @@ button {
     border: 1px solid rgb(149, 153, 152);
     position: relative;
 }
+
+.damaged,
+.missed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.damaged::after,
+.missed::after {
+    content: '';
+    position: absolute;
+    width: 2vmin;
+    height: 2vmin;
+    border-radius: 100%;
+}
+
+.damaged::after {
+    background-color: red;
+}
+
+.missed::after {
+    background-color: black;
+}
+
+.winner {
+    margin: auto;
+}
+
+.ship-box {
+    z-index: 2;
+    left: 0;
+    top: 0;
+    border: 2px solid #00f;
+    border-radius: 20px;
+    background: rgba(0,0,255,.07);
+    position: absolute!important;
+    margin: -1px;
+}
+
+.sunk-ship {
+    border: 2px solid rgb(247, 14, 14);
+    background-color: rgba(0,0,255,.07);
+}
+
+.ship-box__placeholder {
+    border: 2px solid #27992b;
+    background: rgb(154, 248, 157);
+}
