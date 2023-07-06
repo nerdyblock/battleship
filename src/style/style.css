@@ -13,6 +13,12 @@
     user-select: none;
 }
 
+header {
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 1.2em 0;
+}
+
 .container {
     color: aqua;
     display: flex;
@@ -20,7 +26,8 @@
     gap: 5em;
 }
 
-.button-container {
+.button-container,
+.content {
     text-align: center;
 }
 
@@ -33,6 +40,10 @@ button {
     border-radius: 20px;
     background-color: rgb(186, 216, 240);
     text-transform: uppercase;
+}
+
+button:hover {
+    background-color: rgb(157, 194, 224);
 }
 
 .gameboard {
@@ -75,6 +86,13 @@ button {
 
 .winner {
     margin: auto;
+    text-align: center;
+    border-radius: 20px;
+    padding: 2em 3em;
+}
+
+.winner-msg {
+    margin-bottom: 0.5em;
 }
 
 .ship-box {
