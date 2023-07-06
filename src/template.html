@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship</title>
 </head>
-<body>
+<body style="visibility: hidden;">
     <header>
-        <h1>Battleship</h1>
+        <h1>BATTLESHIP</h1>
     </header>
 
-    <div class="content"></div>
+    <div class="content">
+        <h3 class="content__text">Drag and Drop to PLACE and Double Click to ROTATE your Ship </h3>
+    </div>
 
     <main>
         <div class="container">
@@ -21,9 +23,18 @@
             </div>
         </div>
 
-        <div class="buttons"> 
-            <span class="button" id="start-game">start-game</span>
-            <span class="button" id="randomize">randomize</span>
+        <div class="button-container"> 
+            <button class="button" id="start-game">start-game</button>
+            <button class="button" id="randomize">randomize</button>
+        </div>
+
+        <div class="ship-count-container">
+            <div class="player1-ship-count">
+                <h3>ships remaining: <span class="ship-count">10</span></h3>
+            </div>
+            <div class="player2-ship-count">
+                <h3>ships remaining: <span class="ship-count">10</span></h3>
+            </div>
         </div>
     </main>
 
