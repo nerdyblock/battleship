@@ -77,14 +77,18 @@ export function createShipPlacement(playerOne, playerBoard) {
   
     function dragEnd(e) {
         if(e.target.hasAttributes('draggable')) {
-            e.dataTransfer.clearData("text");
-            uiRemoveshipCell(playerOne.getName())
-            uiPlaceShips(playerOne.board.ships, playerOne.getName())
+            // e.dataTransfer.clearData("text");
+            uiRemoveshipCell(playerOne.getName());
+            uiPlaceShips(playerOne.board.ships, playerOne.getName());
         }
     }
   
     function rotateShip(e) {
         if (e.target.getAttribute('draggable') !== 'true') return;
+
+        if(playerOne.board.ships.length < 10) {
+            playerOne.board.placeShip(prevShip[0]);
+        }
         
         const location = e.target.parentElement.dataset.location;
         const startPos = location.split(',').map(Number);
@@ -99,8 +103,8 @@ export function createShipPlacement(playerOne, playerBoard) {
         
         if(playerOne.board.validateLocations(shipLocation)) {
             playerOne.board.placeShip(shipLocation);
-            uiRemoveshipCell(playerOne.getName())
-            uiPlaceShips(playerOne.board.ships, playerOne.getName())
+            uiRemoveshipCell(playerOne.getName());
+            uiPlaceShips(playerOne.board.ships, playerOne.getName());
             return;
         }
         
