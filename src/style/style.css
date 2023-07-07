@@ -22,8 +22,13 @@ header {
 .container {
     color: aqua;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     gap: 5em;
+}
+
+.ship-count-container {
+    text-align: center;
+    color: black;
 }
 
 .button-container,
@@ -49,8 +54,8 @@ button:hover {
 .gameboard {
     display: grid;
     margin: 2em;
-    grid-template-columns: repeat(10, 40px);
-    grid-template-rows: repeat(10, 40px);
+    grid-template-columns: repeat(10, 2em);
+    grid-template-rows: repeat(10, 2em);
     border: 2px solid rgb(83, 83, 83);
     background-color: #f2f8f8;
 }

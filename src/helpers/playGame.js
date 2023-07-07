@@ -50,7 +50,7 @@ export function createGame(player1, player2, playerOneBoard, playerTwoBoard) {
   }
 
   function displayShipCount() {
-    document.querySelector('.ship-count-container').style.visibility = "visible";
+    document.querySelectorAll('.ship-count-container').forEach(item => item.style.visibility = "visible");
   }
 
   function randomFire(player) {
