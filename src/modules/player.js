@@ -11,13 +11,6 @@ const player = (playerName) => {
         return board.receivedAttack(pos);
     }
 
-    const fireRandomly = () => {
-        return board.getRandomFirePosition();
-        // const firingLocation = board.getRandomFirePosition()
-        // fire(firingLocation);
-        // return firingLocation;
-    }
-
     const isGameOver = () => board.ships.every(ship => ship.isSunk());
 
     return {
@@ -25,7 +18,6 @@ const player = (playerName) => {
         setName, 
         getName,
         fire,
-        fireRandomly,
         isGameOver
     }
 
