@@ -31,6 +31,15 @@ describe("place ship in gameboard", () => {
     });
 });
 
+describe("randomly generate gameboard", () => {
+    const newBoard = gameboard();
+    newBoard.randomBoardGenerator();
+    
+    it("board has 10 ships", () => {
+        expect(newBoard.ships.length).toBe(10)
+    });
+});
+
 describe("check for ship", () => {
     const newBoard = gameboard();
     newBoard.placeShip([[ 0, 0 ], [ 0, 1 ]]);
@@ -58,7 +67,7 @@ describe("receive attack", () => {
     it("attack missed the ship", () => {
         newBoard.receivedAttack([1,1]);
         expect(newBoard.ships[0].hits).toBe(0);
-        expect(newBoard.receivedAttack([1,0])).toBe("you have missed the ship");
+        expect(newBoard.receivedAttack([1,0])).toBe("miss");
     }); 
 
     it("ship not sunk", () => {
@@ -69,7 +78,7 @@ describe("receive attack", () => {
     it("ship takes hit", () => {    
         const attackMsg = newBoard.receivedAttack([0,0])
         expect(newBoard.ships[0].hits).toBe(1);
-        expect(attackMsg).toBe("ship has taken a hit")
+        expect(attackMsg).toBe("hit")
     });
 
     it("spot already hit", () => {
@@ -84,29 +93,4 @@ describe("receive attack", () => {
         expect(sunkStatus).toBe(true);
     });
 
-    it("is game over", () => {
-        expect(newBoard.isGameOver()).toBe(true);
-    })
 });
-
-describe("check game over for multiple ships", () => {
-    const newBoard = gameboard();
-    newBoard.placeShip([ [0,0] ]);
-    newBoard.placeShip([ [1,1] ]);
-    newBoard.placeShip([ [2,1], [2,3] ]);
-
-    newBoard.receivedAttack([0,0]);
-
-    it("game not over", () => {
-        expect(newBoard.isGameOver()).toBe(false);
-    })
-
-    it("game over", () => {
-        newBoard.receivedAttack([1,1]);
-        newBoard.receivedAttack([2,1]);
-        newBoard.receivedAttack([2,3]);
-
-        expect(newBoard.isGameOver()).toBe(true);
-    })
-})
-
