@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
 :root {
     font-size: 16px;
+    font-family: sans-serif;
 }
 
 * {
@@ -13,10 +16,17 @@
     user-select: none;
 }
 
+body {
+    background-color: #f3f3f3;
+}
+
 header {
+    font-family: 'Bangers', sans-serif;
     text-align: center;
-    font-size: 1.4rem;
-    padding: 1.2em 0;
+    font-size: 1.9rem;
+    color: rgb(29, 29, 29);
+    letter-spacing: 0.1em;
+    padding: 1em 0;
 }
 
 .container {
@@ -36,6 +46,11 @@ header {
     text-align: center;
 }
 
+.button-container {
+    margin-top: -0.5em;
+    margin-bottom: 1.8em;
+}
+
 button {
     padding: 1em 2.5em;
     margin: 0 0.5em;
@@ -53,7 +68,7 @@ button:hover {
 
 .gameboard {
     display: grid;
-    margin: 2em;
+    margin: 1.5em;
     grid-template-columns: repeat(10, 2em);
     grid-template-rows: repeat(10, 2em);
     border: 2px solid rgb(83, 83, 83);
