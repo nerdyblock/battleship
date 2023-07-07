@@ -6,15 +6,15 @@ describe("create ship", () => {
 
     it("ship of certain length", () => {
         expect(newShip.length).toBe(2);
-    })
+    });
 
     it("ship is not sunk", () => {
         expect(newShip.isSunk()).toBe(false);
-    })
+    });
 
     it("ship has full hp", () => {
         expect(newShip.hits).toBe(0);
-    })
+    });
 });
 
 describe("place ship in gameboard", () => {
@@ -28,6 +28,14 @@ describe("place ship in gameboard", () => {
     it("ship not out of bounds", () => {
         const validateOutofBounds = newBoard.validateLocations([[0,8], [0,9]]);
         expect(validateOutofBounds).toBe(true);
+    });
+});
+
+describe("generate ship", () => {
+    const newBoard = gameboard();
+    const shipLocation = newBoard.generateShip(3, [0,0], 'x');
+    it("check generated ship", () => {
+        expect(shipLocation).toStrictEqual([[0,0], [0,1], [0,2]]);
     });
 });
 
