@@ -10,7 +10,7 @@ This project was made using TDD principle. (test-driven development)
 It was built using:
 
 - JavaScript
-- SASS
+- Css
 - Webpack
 - Jest
 
